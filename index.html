@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#059669">
+    <title>EKOPAM - Sere pi byen, prete pi fasil</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            min-height: 100vh;
+            color: #1f2937;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 20px;
+        }
+        
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .logo-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #059669;
+        }
+        
+        h1 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            color: #d1fae5;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 12px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #059669;
+        }
+        
+        .btn-primary:hover {
+            background: #f0fdf4;
+        }
+        
+        .btn-secondary {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #059669;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: #059669;
+        }
+        
+        .btn-yellow {
+            background: #fbbf24;
+            color: white;
+        }
+        
+        .btn-yellow:hover {
+            background: #f59e0b;
+        }
+        
+        .btn-red {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-red:hover {
+            background: #dc2626;
+        }
+        
+        .btn-small {
+            padding: 12px;
+            font-size: 16px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #059669;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .balance-card {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .balance-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .balance-amount {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .action-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .action-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .transaction-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .transaction-date {
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .transaction-amount {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .amount-positive {
+            color: #059669;
+        }
+        
+        .amount-negative {
+            color: #ef4444;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .alert-warning {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            color: #92400e;
+        }
+        
+        .alert-info {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+        }
+        
+        .info-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .info-section h3 {
+            color: #059669;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .info-section p, .info-section ul {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-section li {
+            padding: 8px 0;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .btn {
+                font-size: 16px;
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Page Akèy -->
+        <div id="homePage" class="page active">
+            <div class="logo">
+                <div class="logo-circle">
+                    <div class="logo-text">EP</div>
+                </div>
+                <h1>EKOPAM</h1>
+                <p class="tagline">Sere pi byen, prete pi fasil, grandi ansanm.</p>
+                <p class="tagline">EKOPAM ak ou chak jou.</p>
+            </div>
+            
+            <div id="loginButtons">
+                <button class="btn btn-primary" onclick="showPage('loginPage')">Konekte</button>
+                <button class="btn btn-secondary" onclick="showPage('registerPage')">Enskri</button>
+                <button class="btn btn-outline" onclick="showPage('infoPage')">Enfòmasyon sou EKOPAM</button>
+            </div>
+            
+            <div id="dashboardContent" class="hidden">
+                <div class="balance-card">
+                    <div class="balance-label">Byenveni, <span id="userName"></span>!</div>
+                    <div class="balance-amount"><span id="userBalance">0</span> HTG</div>
+                </div>
+                
+                <div class="grid-2">
+                    <div class="action-card" onclick="showPage('depositPage')">
+                        <div class="action-icon">💵</div>
+                        <div>Depo</div>
+                    </div>
+                    <div class="action-card" onclick="showPage('withdrawPage')">
+                        <div class="action-icon">💳</div>
+                        <div>Retrè</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="showPage('transactionsPage')">📋 Istwa Tranzaksyon</button>
+                <button class="btn btn-yellow" onclick="showPage('loanPage')">Mande Prè</button>
+                <button class="btn btn-red btn-small" onclick="logout()">Dekonekte</button>
+            </div>
+        </div>
+        
+        <!-- Page Enskripsyon -->
+        <div id="registerPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <div class="card">
+                <h2 style="color: #059669; margin-bottom: 20px;">Enskri nan EKOPAM</h2>
+                
+                <div class="input-group">
+                    <label>Non Konple *</label>
+                    <input type="text" id="regName" placeholder="Antre non ou">
+                </div>
+                
+                <div class="input-group">
+                    <label>Nimewo Telefòn *</label>
+                    <input type="tel" id="regPhone" placeholder="+509">
+                </div>
+                
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="email@example.com">
+                </div>
+                
+                <div class="input-group">
+                    <label>Adrès *</label>
+                    <input type="text" id="regAddress" placeholder="Adrès lakay ou">
+                </div>
+                
+                <div class="input-group">
+                    <label>Tip Biznis/Kòmès *</label>
+                    <input type="text" id="regBusiness" placeholder="Machan, Boulanje, etc.">
+                </div>
+                
+                <div class="input-group">
+                    <label>Modpas *</label>
+                    <input type="password" id="regPassword" placeholder="Kreye yon modpas">
+                </div>
+                
+                <button class="btn btn-secondary" onclick="register()">Enskri</button>
+            </div>
+        </div>
+        
+        <!-- Page Koneksyon -->
+        <div id="loginPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <div class="card">
+                <h2 style="color: #059669; margin-bottom: 20px;">Konekte</h2>
+                
+                <div class="input-group">
+                    <label>Nimewo Telefòn</label>
+                    <input type="tel" id="loginPhone" placeholder="+509">
+                </div>
+                
+                <div class="input-group">
+                    <label>Modpas</label>
+                    <input type="password" id="loginPassword" placeholder="Antre modpas ou">
+                </div>
+                
+                <button class="btn btn-secondary" onclick="login()">Konekte</button>
+            </div>
+        </div>
+        
+        <!-- Page Depo -->
+        <div id="depositPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <div class="card">
+                <h2 style="color: #059669; margin-bottom: 20px;">Fe Yon Depo</h2>
+                
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="color: #6b7280; font-size: 14px;">Balans Aktyèl:</div>
+                    <div style="color: #059669; font-size: 28px; font-weight: bold;"><span id="depositBalance">0</span> HTG</div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Montan pou Depoze</label>
+                    <input type="number" id="depositAmount" placeholder="0" min="1">
+                </div>
+                
+                <button class="btn btn-secondary" onclick="makeDeposit()">Konfime Depo</button>
+            </div>
+        </div>
+        
+        <!-- Page Retrè -->
+        <div id="withdrawPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <div class="card">
+                <h2 style="color: #059669; margin-bottom: 20px;">Fe Yon Retrè</h2>
+                
+                <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <div style="color: #6b7280; font-size: 14px;">Balans Disponib:</div>
+                    <div style="color: #059669; font-size: 28px; font-weight: bold;"><span id="withdrawBalance">0</span> HTG</div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Montan pou Retire</label>
+                    <input type="number" id="withdrawAmount" placeholder="0" min="1">
+                </div>
+                
+                <button class="btn btn-secondary" onclick="makeWithdraw()">Konfime Retrè</button>
+            </div>
+        </div>
+        
+        <!-- Page Tranzaksyon -->
+        <div id="transactionsPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <h2 style="color: white; margin-bottom: 20px;">Istwa Tranzaksyon</h2>
+            
+            <div id="transactionsList"></div>
+        </div>
+        
+        <!-- Page Prè -->
+        <div id="loanPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <div class="card">
+                <h2 style="color: #059669; margin-bottom: 20px;">Mande Yon Prè</h2>
+                
+                <div class="alert alert-warning">
+                    <strong>Kondisyon yo:</strong> To enterè 2-5%, peryòd 3-12 mwa
+                </div>
+                
+                <div class="input-group">
+                    <label>Montan Prè (HTG)</label>
+                    <input type="number" id="loanAmount" placeholder="Minimòm 1,000 HTG" min="1000">
+                </div>
+                
+                <div class="input-group">
+                    <label>Rezon/Objektif</label>
+                    <textarea id="loanPurpose" placeholder="Eksplike poukisa w bezwen prè sa a..."></textarea>
+                </div>
+                
+                <button class="btn btn-yellow" onclick="requestLoan()">Soumèt Demann</button>
+            </div>
+        </div>
+        
+        <!-- Page Enfòmasyon -->
+        <div id="infoPage" class="page">
+            <a href="#" class="back-btn" onclick="showPage('homePage'); return false;">← Retounen</a>
+            
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">Sou EKOPAM</h2>
+            
+            <div class="info-section">
+                <h3>Misyon Nou</h3>
+                <p>EKOPAM se yon sosyete finansman ki ede ti machann ak ti antrepriz yo grandi. Nou bay prè ak sèvis finansye pou sipòte devlopman kominote a.</p>
+            </div>
+            
+            <div class="info-section">
+                <h3>Sèvis Nou Yo</h3>
+                <ul>
+                    <li>✓ Prè pou biznis ak kòmès</li>
+                    <li>✓ Kont depay ak retrè</li>
+                    <li>✓ Konsèy finansye</li>
+                    <li>✓ Èd nan jesyon biznis</li>
+                </ul>
+            </div>
+            
+            <div class="info-section">
+                <h3>Kontakte Nou</h3>
+                <p>📞 +509 XXXX-XXXX</p>
+                <p>📧 info@ekopam.ht</p>
+            </div>
+            
+            <div style="background: #059669; color: white; padding: 25px; border-radius: 12px; text-align: center;">
+                <p style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Sere pi byen, prete pi fasil, grandi ansanm.</p>
+                <p style="font-size: 14px;">EKOPAM ak ou chak jou.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // State management
+        let currentUser = null;
+        let transactions = [];
+        
+        // Initialize app
+        function initApp() {
+            const savedUser = localStorage.getItem('ekopamUser');
+            const savedTransactions = localStorage.getItem('ekopamTransactions');
+            
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                if (savedTransactions) {
+                    transactions = JSON.parse(savedTransactions);
+                }
+                showDashboard();
+            }
+        }
+        
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update balances when showing deposit/withdraw pages
+            if (pageId === 'depositPage') {
+                document.getElementById('depositBalance').textContent = currentUser.balance;
+            }
+            if (pageId === 'withdrawPage') {
+                document.getElementById('withdrawBalance').textContent = currentUser.balance;
+            }
+            if (pageId === 'transactionsPage') {
+                displayTransactions();
+            }
+        }
+        
+        // Registration
+        function register() {
+            const name = document.getElementById('regName').value;
+            const phone = document.getElementById('regPhone').value;
+            const email = document.getElementById('regEmail').value;
+            const address = document.getElementById('regAddress').value;
+            const business = document.getElementById('regBusiness').value;
+            const password = document.getElementById('regPassword').value;
+            
+            if (!name || !phone || !address || !business || !password) {
+                alert('Tanpri ranpli tout chan obligatwa yo!');
+                return;
+            }
+            
+            currentUser = {
+                name: name,
+                phone: phone,
+                email: email,
+                address: address,
+                business: business,
+                password: password,
+                balance: 0
+            };
+            
+            localStorage.setItem('ekopamUser', JSON.stringify(currentUser));
+            alert('Enskripsyon reyisi! Byenveni nan EKOPAM!');
+            showDashboard();
+            showPage('homePage');
+        }
+        
+        // Login
+        function login() {
+            const phone = document.getElementById('loginPhone').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!phone || !password) {
+                alert('Tanpri antre nimewo telefòn ak modpas ou!');
+                return;
+            }
+            
+            const savedUser = localStorage.getItem('ekopamUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                if (user.phone === phone && user.password === password) {
+                    currentUser = user;
+                    const savedTransactions = localStorage.getItem('ekopamTransactions');
+                    if (savedTransactions) {
+                        transactions = JSON.parse(savedTransactions);
+                    }
+                    showDashboard();
+                    showPage('homePage');
+                    return;
+                }
+            }
+            
+            alert('Nimewo telefòn oswa modpas pa kòrèk!');
+        }
+        
+        // Logout
+        function logout() {
+            if (confirm('Èske w vle dekonekte?')) {
+                currentUser = null;
+                document.getElementById('loginButtons').classList.remove('hidden');
+                document.getElementById('dashboardContent').classList.add('hidden');
+            }
+        }
+        
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('loginButtons').classList.add('hidden');
+            document.getElementById('dashboardContent').classList.remove('hidden');
+            document.getElementById('userName').textContent = currentUser.name;
+            updateBalance();
+        }
+        
+        // Update balance display
+        function updateBalance() {
+            document.getElementById('userBalance').textContent = currentUser.balance.toLocaleString();
+        }
+        
+        // Make deposit
+        function makeDeposit() {
+            const amount = parseFloat(document.getElementById('depositAmount').value);
+            
+            if (!amount || amount <= 0) {
+                alert('Tanpri antre yon montan valid!');
+                return;
+            }
+            
+            currentUser.balance += amount;
+            transactions.push({
+                type: 'Depo',
+                amount: amount,
+                date: new Date().toLocaleDateString('fr-FR')
+            });
+            
+            saveData();
+            alert(`Depo ${amount.toLocaleString()} HTG reyisi!`);
+            document.getElementById('depositAmount').value = '';
+            showPage('homePage');
+        }
+        
+        // Make withdraw
+        function makeWithdraw() {
+            const amount = parseFloat(document.getElementById('withdrawAmount').value);
+            
+            if (!amount || amount <= 0) {
+                alert('Tanpri antre yon montan valid!');
+                return;
+            }
+            
+            if (amount > currentUser.balance) {
+                alert('Ou pa gen ase lajan nan kont ou!');
+                return;
+            }
+            
+            currentUser.balance -= amount;
+            transactions.push({
+                type: 'Retrè',
+                amount: amount,
+                date: new Date().toLocaleDateString('fr-FR')
+            });
+            
+            saveData();
+            alert(`Retrè ${amount.toLocaleString()} HTG reyisi!`);
+            document.getElementById('withdrawAmount').value = '';
+            showPage('homePage');
+        }
+        
+        // Display transactions
+        function displayTransactions() {
+            const container = document.getElementById('transactionsList');
+            
+            if (transactions.length === 0) {
+                container.innerHTML = '<div class="card empty-state">Pa gen okenn tranzaksyon ankò</div>';
+                return;
+            }
+            
+            let html = '';
+            transactions.slice().reverse().forEach(trans => {
+                const isDeposit = trans.type === 'Depo';
+                html += `
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <h3>${trans.type}</h3>
+                            <div class="transaction-date">${trans.date}</div>
+                        </div>
+                        <div class="transaction-amount ${isDeposit ? 'amount-positive' : 'amount-negative'}">
+                            ${isDeposit ? '+' : '-'}${trans.amount.toLocaleString()} HTG
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Request loan
+        function requestLoan() {
+            const amount = parseFloat(document.getElementById('loanAmount').value);
+            const purpose = document.getElementById('loanPurpose').value;
+            
+            if (!amount || amount < 1000) {
+                alert('Montan minimòm se 1,000 HTG!');
+                return;
+            }
+            
+            if (!purpose) {
+                alert('Tanpri eksplike rezon ou!');
+                return;
+            }
+            
+            alert('Demann prè ou a soumèt! Nou pral kontakte ou nan 48-72 èdtan.');
+            document.getElementById('loanAmount').value = '';
+            document.getElementById('loanPurpose').value = '';
+            showPage('homePage');
+        }
+        
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('ekopamUser', JSON.stringify(currentUser));
+            localStorage.setItem('ekopamTransactions', JSON.stringify(transactions));
+            updateBalance();
+        }
+        
+        // Initialize app on load
+        initApp();
+    </script>
+</body>
+</html>
